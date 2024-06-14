@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -6,7 +5,7 @@ using UnityEngine;
 /// REQUIRE COMPONENT
 /// Agrega a el gameobject que contenga el script el componente escrito en la linea
 /// </summary>
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(GroundCheck))]
 public class MovementController : MonoBehaviour
 {
     public float walkSpeed;
@@ -16,12 +15,10 @@ public class MovementController : MonoBehaviour
     public float jumpForce;
 
     private Rigidbody rb;
+    private GroundCheck groundCheck;
 
-    GroundCheck suelito;
+    Vector3 currentVelocity; // La velocidad actual de mi rigid body
 
-    public GameObject suelitos2;
-    public Vector3 velocidadabajo;
-    public float gravedad = -9.8f;
     private void Metodo()
     { 
         //var rigidBody = GetComponent<Rigidbody>();
@@ -66,21 +63,30 @@ public class MovementController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        suelito = suelitos2.GetComponent<GroundCheck>();
+        groundCheck = GetComponent<GroundCheck>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+        Jump();
+    }
+
+    private void FixedUpdate()
     {
         Movement();
-        Jump();
     }
 
     #region Movimiento
 
     private void Movement()
     {
-        rb.velocity = MoveDirection() * ActualMoveSpeed();     
+        currentVelocity = rb.velocity; // Me consigue la velocidad actual de el rigidbody
+        //Indica hacia donde y a que velocidad de me voy a mover
+        Vector3 movement = transform.localRotation * new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical") * ActualMoveSpeed());
+        // Corrige mi velocidad en y
+        movement.y = currentVelocity.y;
+        //Aplica el movimiento
+        rb.velocity = movement;     
     }
 
     //Este metodo nos regresa un valor flotante que indica la velocidad a la que nos moveremos
@@ -103,12 +109,6 @@ public class MovementController : MonoBehaviour
         return RunInputPressed()? runSpeed : CrouchInputPressed()? crouchSpeed : walkSpeed; 
     }
 
-    //Este metodo nos regresa un vector, que apunta hacia donde nos vamos a mover, según las teclas que presionemos WASD
-    private Vector3 MoveDirection()
-    {
-        return new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-    }
-
     private bool RunInputPressed()
     {
         return Input.GetKeyDown(KeyCode.LeftShift);
@@ -121,23 +121,14 @@ public class MovementController : MonoBehaviour
 
     #endregion
 
-    /// <summary>
-    /// EJERCICIO 2
-    /// 
-    /// Una vez creado el script de GroundCheck, debe de usarse aqui mismo para determinar
-    /// si el objeto que contenga este script puede saltar o no
-    /// La condicion para que el objeto pueda saltar, es que este debe estar tocando el suelo
-    /// </summary>
     private void Jump()
     {
-       
-        if (JumpInputPressed() && suelito.estaenelsuelo())
+        // El ground check se puso como 1ra condición, para que esta
+        // se ejecute primero, de manera que nos haga el debug de el rayo en el metodo IsGrounded
+        if (groundCheck.IsGrounded() && JumpInputPressed())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-          
         }
-
-
     }
 
     private bool JumpInputPressed()

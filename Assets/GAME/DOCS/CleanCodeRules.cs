@@ -49,14 +49,63 @@ public class CleanCodeRules : MonoBehaviour
 
     public float stamina;
 
-    private void Start()
+    /// <summary>
+    /// Sucede al darle play
+    /// </summary>
+    private void Awake()
     {
-        stamina = 0;
+        Debug.Log("1");
     }
 
+
+    /// <summary>
+    /// Se ejecuta, cada vez que se activa el script
+    /// </summary>
+    private void OnEnable()
+    {
+        Debug.Log("2");
+    }
+
+    /// <summary>
+    /// Se ejecuta la primera vez que se activa el script
+    /// </summary>
+    private void Start()
+    {
+        //Fire();
+        Debug.Log("3");
+    }
+
+
+    /// <summary>
+    /// Se ejecuta, cada vez que se desactiva el script
+    /// </summary>
+    private void OnDisable()
+    {
+        Debug.Log("4");
+    }
+
+    /// <summary>
+    /// Se ejecuta unicamente en el editor, y cada vez que se realiza un cambio en el inspector
+    /// </summary>
+    private void OnValidate()
+    {
+        Debug.Log("Se cambio algo");
+    }
+
+    /// <summary>
+    /// Se ejecuta cada frame
+    /// </summary>
     private void Update()
     {
-        Run();
+
+    }
+
+    /// <summary>
+    /// Se ejecuta cada frame, pero, fixeado a 60fps
+    /// </summary>
+    private void FixedUpdate()
+    {
+
     }
 
     /// <summary>

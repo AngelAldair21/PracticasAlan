@@ -24,10 +24,37 @@ using UnityEngine;
 ///     float bloomIntensity;
 ///     
 /// PRIVACIDAD DE VARIABLES
+/// 
+/// PRIVATE
 /// Independientemente de la variable, si esta es privada, se debe de escribir la palabra private antes 
 /// de declararla
 /// 
 ///     private int stamina;
+///     
+/// INTERNAL
+/// Es publica, dentro de el mismo espacio de trabajo o ensamblado. 
+/// 
+/// PROTECTED
+/// Es un tipo de protección para las variables, que se usa en herencia. 
+/// Las variables PROTECTED son publicas para la herencia, pero, privadas para otro script.
+/// 
+/// 
+///[SERIALIZE FIELD]
+///
+/// Sirve para mostrar variables privadas, protected o internal en el inspector
+/// 
+/// MANAGER
+/// Este sirve para gestion de informacion, ya sea, a nivel sistema o gameplay.
+/// Por ejemplo un manager de items de el juego
+/// Manager de misiones
+/// 
+/// HANDLER
+/// Un Handler, puede tener inputs, pero, más que nada, sirve para
+/// controlar una serie de eventos por detras de cámara
+/// 
+/// CONTROLLER
+/// Un controller, como tal si "controla" acciones en base a inputs, y en todo momento tienes
+/// conocimiento de esas acciones
 /// </summary>
 public class CleanCodeRules : MonoBehaviour
 {

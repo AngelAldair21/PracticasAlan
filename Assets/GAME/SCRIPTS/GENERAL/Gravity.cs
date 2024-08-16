@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -18,7 +16,7 @@ public class Gravity : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        groundCheck = GetComponent<GroundCheck>();  
+        groundCheck = GetComponent<GroundCheck>();
     }
 
     private void FixedUpdate()
@@ -33,8 +31,5 @@ public class Gravity : MonoBehaviour
             acceleration = baseAcceleration;
         }
     }
-
-
-
 
 }

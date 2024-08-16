@@ -9,6 +9,8 @@ public class GroundCheck : MonoBehaviour
     public float range;
     public LayerMask groundLayers;
 
+    private float numero;
+
     private void Update()
     {
         if (IsGrounded())

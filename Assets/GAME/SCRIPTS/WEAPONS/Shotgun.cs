@@ -1,25 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public class Shotgun : Weapon
+
+namespace WeaponSystem
 {
-
-
-    public float spread;
-
-    public override void Fire()
+    public class Shotgun : Weapon
     {
-        Debug.Log($"Escopeta {name} pam pam");
-    }
+        public float spread;
 
-    public override void Aim()
-    {
+        public override void Fire()
+        {
+            Debug.Log($"Escopeta {weaponName} pam pam");
+        }
 
-    }
+        public override void Aim()
+        {
+            Debug.Log("Apuntando");
+        }
 
-    public override void Reload()
-    {
-
+        public override void Reload()
+        {
+            Debug.Log("Recargando...");
+        }
     }
 }
